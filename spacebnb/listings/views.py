@@ -14,7 +14,13 @@ class ListingListView(ListView):
     def get(self, request):
         """GET a list of listings"""
         listings = self.get_queryset().all().order_by("start_date")
-        return render(request, 'listings/list.html', {'listings': listings})
+        username = None
+        auth = request.user.is_authenticated
+        if auth:
+            username = request.user.username
+        return render(request, 'listings/list.html', {'listings': listings,
+                                                      'username': username,
+                                                      'auth': auth})
 
 
 class ListingDetailView(DetailView):

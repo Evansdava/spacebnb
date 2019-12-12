@@ -1,7 +1,7 @@
 <div class="card">
     <img src="{{listing.img_url}}" alt="Planet Image" class="card-img-top">
     <div class="card-body">
-        <h3 class="card-title">{{listing.name}} - {{listing.location}}</h3>
+        <a href="{% url 'listing-detail' listing.slug %}"><h3 class="card-title">{{listing.name}} - {{listing.location}}</h3></a>
         <h6 class="card-subtitle mb-2 text-muted">${{listing.price}}</h6>
         <p class="card-text">{{listing.description}}</p>
     </div>
