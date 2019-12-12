@@ -1,1 +1,1 @@
-[Proposal](../proposal.md)
+[Proposal](../blob/master/proposal.md)

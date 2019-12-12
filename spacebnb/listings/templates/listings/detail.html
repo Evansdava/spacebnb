@@ -1,0 +1,22 @@
+{% extends 'listings/base.html' %}
+
+{% block title %}{{listing.name}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="jumbotron-fluid">
+            <img src="{{listing.img_url}}" alt="Listing Image" class="img-fluid">
+        </div>
+        <div class="row">
+            <h1>{{listing.name}}</h1>
+            <h2>{{listing.location}}</h2>
+        </div>
+        <div class="row">
+            <h4 class="text-muted">{{listing.price}}</h4>
+            <h4 class="text-muted">{{listing.start_date}}-{{listing.end_date}}</h4>
+        </div>
+        <div class="row my-3">
+            <p>{{listing.description}}</p>
+        </div>
+    </div>
+{% endblock %}
