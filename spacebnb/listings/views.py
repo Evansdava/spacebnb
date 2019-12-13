@@ -55,5 +55,25 @@ class ListingDetailView(DetailView):
                                                         'auth': auth})
 
 
+class BookedListView(ListView):
+    """Show the user's booked listings"""
+    model = Listing
+
+    def get(self, request):
+        """GET the list of booked listings for the user"""
+        username = None
+        user = None
+        auth = request.user.is_authenticated
+        if auth:
+            user = request.user
+            username = request.user.username
+        listings = self.get_queryset().filter(guest=user)\
+            .order_by("start_date")
+
+        return render(request, 'listings/booked.html', {'listings': listings,
+                                                        'username': username,
+                                                        'auth': auth})
+
+
 def index(request):
     return HttpResponse("Hello, world. You're at the spacebnb index.")
