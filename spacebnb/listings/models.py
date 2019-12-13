@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import User
 from django.utils.text import slugify
 
 
@@ -16,6 +17,7 @@ class Listing(models.Model):
     owner = models.CharField(max_length=20)
     img_url = models.URLField(default="https://via.placeholder.com/300")
     slug = models.SlugField(max_length=100, blank=True, null=True)
+    guest = models.ManyToManyField(User)
 
     def __str__(self):
         """Display the name of the listing when asked for a string"""

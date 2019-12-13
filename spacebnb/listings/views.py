@@ -31,7 +31,28 @@ class ListingDetailView(DetailView):
     def get(self, request, slug):
         """GET the view associated with a slug"""
         listing = self.get_queryset().get(slug__iexact=slug)
-        return render(request, 'listings/detail.html', {'listing': listing})
+        username = None
+        auth = request.user.is_authenticated
+        if auth:
+            username = request.user.username
+        return render(request, 'listings/detail.html', {'listing': listing,
+                                                        'username': username,
+                                                        'auth': auth})
+
+    def post(self, request, slug):
+        """POST the button to assign a listing to a user"""
+        auth = request.user.is_authenticated
+        user = None
+        username = None
+        if auth:
+            user = request.user
+            username = user.username
+        listing = self.get_queryset().get(slug__iexact=slug)
+        listing.guest.set([user])
+        listing.save()
+        return render(request, 'listings/detail.html', {'listing': listing,
+                                                        'username': username,
+                                                        'auth': auth})
 
 
 def index(request):
