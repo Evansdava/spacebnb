@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-# from django.urls import reverse_lazy
-from .models import Listing
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import Listing, ListingForm
 
 
 class ListingListView(ListView):
@@ -75,5 +76,15 @@ class BookedListView(ListView):
                                                         'auth': auth})
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the spacebnb index.")
+class NewListingView(CreateView):
+    """Returns a form for a new listing"""
+
+    template_name = 'listings/new_listing.html'
+    form_class = ListingForm
+    success_url = reverse_lazy('listing-list')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.save()
+        return super().form_valid(form)

@@ -14,6 +14,7 @@
         {% if auth == True %}
             <div class="text-white">Hello, <strong>{{username}}</strong>!</div>
             <a href="{% url 'booked-list' %}" class="btn btn-primary ml-4">Your Booked Listings</a>
+            <a href="{% url 'new-listing' %}" class="btn btn-success ml-4">Post a Listing</a>
             <a href="{% url 'logout' %}" class="btn btn-danger ml-2">Log Out</a>
         {% else %}
             <a href="{% url 'login' %}" class="btn btn-secondary ml-2">Log In</a>

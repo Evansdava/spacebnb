@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 from django.utils.text import slugify
 
 
@@ -24,9 +25,18 @@ class Listing(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        """Creates a URL safe slug when a new a page is created."""
+        """Creates a URL safe slug when a new a listing is created."""
         if not self.pk:
             self.slug = slugify(self.name, allow_unicode=True)
 
         # Call save on the superclass.
         return super(Listing, self).save(*args, **kwargs)
+
+
+class ListingForm(ModelForm):
+    """Form for new listings"""
+
+    class Meta:
+        model = Listing
+        fields = ['name', 'owner', 'description', 'price', 'start_date',
+                  'end_date', 'location', 'img_url']
