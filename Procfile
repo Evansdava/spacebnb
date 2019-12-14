@@ -1,0 +1,1 @@
+web: gunicorn spacebnb.spacebnb.wsgi --log-file -
